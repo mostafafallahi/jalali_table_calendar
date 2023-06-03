@@ -320,6 +320,10 @@ class CalendarDayPicker extends StatelessWidget {
           decoration: decoration,
           child: Stack(
             children: [
+              if (marker != null &&
+                  events != null &&
+                  events![dayToBuild] != null)
+                mark
               Center(
                 child: Semantics(
                   // We want the day of month to be spoken first irrespective of the
@@ -337,10 +341,7 @@ class CalendarDayPicker extends StatelessWidget {
                   ),
                 ),
               ),
-              if (marker != null &&
-                  events != null &&
-                  events![dayToBuild] != null)
-                mark
+              
             ],
           ),
         );
