@@ -1,10 +1,10 @@
 name: jalali_table_calendar
 description: Tabel Calendar , Calendar DatePacker , Datepicker and Date Convertor For Persian Date(Jalali/Shamsi date) with holidays.
-version: 1.1.2+1
+version: 1.1.3+1
 homepage: https://github.com/Azare77/jalali_table_calendar
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -21,7 +21,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
 # To add assets to your package, add an assets section, like this:
 # assets:
 #   - images/a_dot_burr.jpeg

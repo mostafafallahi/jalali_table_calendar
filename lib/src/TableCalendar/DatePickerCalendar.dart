@@ -14,6 +14,7 @@ class DatePickerCalendar extends StatefulWidget {
   const DatePickerCalendar({
     Key? key,
     this.initialDate,
+    this.onMonthChanged,
     this.firstDate,
     this.lastDate,
     this.selectableDayPredicate,
@@ -47,6 +48,8 @@ class DatePickerCalendar extends StatefulWidget {
   /// `Map` of events.
   /// Each `DateTime` inside this `Map` should get its own `List` of objects (i.e. events).
   final Map<DateTime, List>? events;
+
+  final ValueChanged<DateTime>? onMonthChanged;
 
   /// Called whenever any day gets tapped.
   final OnDaySelected? onDaySelected;
@@ -147,6 +150,7 @@ class _DatePickerCalendarState extends State<DatePickerCalendar> {
     });
     return calendar;
   }
+
   Widget? _buildWidget() {
     assert(_mode != null);
     switch (_mode) {
@@ -155,6 +159,7 @@ class _DatePickerCalendarState extends State<DatePickerCalendar> {
           key: _pickerKey,
           selectedDate: _selectedDate!,
           onChanged: _handleDayChanged,
+          onMonthChanged: widget.onMonthChanged,
           marker: widget.marker,
           events: widget.events,
           firstDate: widget.firstDate!,

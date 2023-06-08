@@ -36,9 +36,6 @@ typedef MarkerBuilder = Widget Function(DateTime date, List? events);
 ///  * [showDatePicker]
 ///  * <https://material.google.com/components/pickers.html#pickers-date-pickers>
 
-
-
-
 /// Signature for predicating dates for enabled date selections.
 ///
 /// See [showDatePicker].
@@ -86,12 +83,14 @@ class JalaliTableCalendar extends StatefulWidget {
   final MarkerBuilder? marker;
   final Map<DateTime, List>? events;
   final OnDaySelected? onDaySelected;
+  final ValueChanged<DateTime>? onMonthChanged;
 
   JalaliTableCalendar(
       {required this.context,
       this.selectableDayPredicate,
       this.selectedFormat,
       this.locale,
+      this.onMonthChanged,
       this.initialDatePickerMode = DatePickerModeCalendar.day,
       this.textDirection = TextDirection.rtl,
       this.convertToGregorian = false,
@@ -138,6 +137,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
         initialDate: initialDate,
         firstDate: firstDate,
         lastDate: lastDate,
+        onMonthChanged: widget.onMonthChanged,
         selectableDayPredicate: widget.selectableDayPredicate,
         initialDatePickerMode: widget.initialDatePickerMode,
         selectedFormat: widget.selectedFormat ?? "yyyy-mm-dd HH:nn:ss",

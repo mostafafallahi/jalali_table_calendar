@@ -30,6 +30,7 @@ class CalendarMonthPicker extends StatefulWidget {
     required this.onChanged,
     required this.firstDate,
     required this.lastDate,
+    this.onMonthChanged,
     this.contextLocale,
     this.marker,
     this.events,
@@ -54,6 +55,9 @@ class CalendarMonthPicker extends StatefulWidget {
   /// Called when the user picks a month.
   final ValueChanged<DateTime> onChanged;
 
+  /// Called when the user picks a month.
+  final ValueChanged<DateTime>? onMonthChanged;
+
   /// The earliest date the user is permitted to pick.
   final DateTime firstDate;
 
@@ -71,8 +75,8 @@ class CalendarMonthPicker extends StatefulWidget {
 class _CalendarMonthPickerState extends State<CalendarMonthPicker>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _chevronOpacityTween =
-  Tween<double>(begin: 1.0, end: 0.0)
-      .chain(CurveTween(curve: Curves.easeInOut));
+      Tween<double>(begin: 1.0, end: 0.0)
+          .chain(CurveTween(curve: Curves.easeInOut));
 
   @override
   void initState() {
@@ -80,6 +84,9 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
     // Initially display the pre-selected date.
     final int monthPage = _monthDelta(widget.firstDate, widget.selectedDate);
     _dayPickerController = PageController(initialPage: monthPage);
+    _dayPickerController!.addListener(
+      () {},
+    );
     _handleMonthPageChanged(monthPage);
     _updateCurrentDate();
 
@@ -89,6 +96,7 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
     _chevronOpacityAnimation =
         _chevronOpacityController.drive(_chevronOpacityTween);
   }
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -127,10 +135,10 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
   void _updateCurrentDate() {
     _todayDate = DateTime.now();
     final DateTime tomorrow =
-    DateTime(_todayDate.year, _todayDate.month, _todayDate.day + 1);
+        DateTime(_todayDate.year, _todayDate.month, _todayDate.day + 1);
     Duration timeUntilTomorrow = tomorrow.difference(_todayDate);
     timeUntilTomorrow +=
-    const Duration(seconds: 1); // so we don't miss it by rounding
+        const Duration(seconds: 1); // so we don't miss it by rounding
     _timer?.cancel();
     _timer = Timer(timeUntilTomorrow, () {
       setState(() {
@@ -188,7 +196,7 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
             localizations.formatMonthYear(_nextMonthDate), textDirection);
         _dayPickerController!.nextPage(
             duration:
-            initialized ? kMonthScrollDuration : Duration(milliseconds: 1),
+                initialized ? kMonthScrollDuration : Duration(milliseconds: 1),
             curve: Curves.ease);
       }
     } catch (e) {
@@ -270,7 +278,7 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
                     ? null
                     : '${localizations.previousMonthTooltip} ${localizations.formatMonthYear(_previousMonthDate)}',
                 onPressed:
-                _isDisplayingFirstMonth ? null : _handlePreviousMonth,
+                    _isDisplayingFirstMonth ? null : _handlePreviousMonth,
               ),
             ),
           ),
@@ -295,5 +303,4 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
       ],
     );
   }
-
 }
