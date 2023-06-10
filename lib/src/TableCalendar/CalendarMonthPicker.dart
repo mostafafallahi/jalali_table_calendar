@@ -84,9 +84,7 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
     // Initially display the pre-selected date.
     final int monthPage = _monthDelta(widget.firstDate, widget.selectedDate);
     _dayPickerController = PageController(initialPage: monthPage);
-    _dayPickerController!.addListener(
-      () {},
-    );
+
     _handleMonthPageChanged(monthPage);
     _updateCurrentDate();
 
@@ -95,6 +93,15 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
         duration: const Duration(milliseconds: 250), vsync: this);
     _chevronOpacityAnimation =
         _chevronOpacityController.drive(_chevronOpacityTween);
+
+    _dayPickerController!.addListener(
+      () {
+        print("test");
+        if (widget.onMonthChanged != null) {
+          widget.onMonthChanged!(DateTime.now());
+        }
+      },
+    );
   }
 
   @override
