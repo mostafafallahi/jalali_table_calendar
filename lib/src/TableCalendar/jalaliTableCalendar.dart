@@ -117,7 +117,7 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
         if (key is DateTime) {
           formattedEvents[DateTime(key.year, key.month, key.day)] = value;
         } else {
-          key[key] = value;
+          formattedEvents[key] = value;
         }
       });
     }
