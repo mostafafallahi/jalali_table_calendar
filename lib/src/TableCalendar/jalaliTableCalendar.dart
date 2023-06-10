@@ -81,7 +81,7 @@ class JalaliTableCalendar extends StatefulWidget {
   final bool hour24Format;
   final TimeOfDay? initialTime;
   final MarkerBuilder? marker;
-  final Map<DateTime, List>? events;
+  final Map<dynamic, List>? events;
   final OnDaySelected? onDaySelected;
   final ValueChanged<DateTime>? onMonthChanged;
 
@@ -111,10 +111,14 @@ class _JalaliTableCalendarState extends State<JalaliTableCalendar> {
     DateTime initialDate = DateTime.now();
     DateTime firstDate = DateTime(1700);
     DateTime lastDate = DateTime(2200);
-    Map<DateTime, List>? formattedEvents = {};
+    Map<dynamic, List>? formattedEvents = {};
     if (widget.events != null) {
       widget.events!.forEach((key, value) {
-        formattedEvents[DateTime(key.year, key.month, key.day)] = value;
+        if (key is DateTime) {
+          formattedEvents[DateTime(key.year, key.month, key.day)] = value;
+        } else {
+          key[key] = value;
+        }
       });
     }
 

@@ -47,7 +47,7 @@ class DatePickerCalendar extends StatefulWidget {
 
   /// `Map` of events.
   /// Each `DateTime` inside this `Map` should get its own `List` of objects (i.e. events).
-  final Map<DateTime, List>? events;
+  final Map<dynamic, List>? events;
 
   final ValueChanged<DateTime>? onMonthChanged;
 
