@@ -322,7 +322,7 @@ class CalendarDayPicker extends StatelessWidget {
             children: [
               if (marker != null &&
                   events != null &&
-                  events![dayToBuild] != null)
+                  (events![dayToBuild] != null || events!["*"] != null))
                 mark,
               Center(
                 child: Semantics(
