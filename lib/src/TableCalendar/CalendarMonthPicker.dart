@@ -96,9 +96,8 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
 
     _dayPickerController!.addListener(
       () {
-        print("test");
         if (widget.onMonthChanged != null) {
-          widget.onMonthChanged!(DateTime.now());
+          widget.onMonthChanged!(_currentDisplayedMonthDate);
         }
       },
     );
