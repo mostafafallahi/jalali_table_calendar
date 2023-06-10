@@ -93,14 +93,6 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
         duration: const Duration(milliseconds: 250), vsync: this);
     _chevronOpacityAnimation =
         _chevronOpacityController.drive(_chevronOpacityTween);
-
-    _dayPickerController!.addListener(
-      () {
-        if (widget.onMonthChanged != null) {
-          widget.onMonthChanged!(_currentDisplayedMonthDate);
-        }
-      },
-    );
   }
 
   @override
@@ -243,6 +235,9 @@ class _CalendarMonthPickerState extends State<CalendarMonthPicker>
           _addMonthsToMonthDate(widget.firstDate, monthPage);
       _nextMonthDate = _addMonthsToMonthDate(widget.firstDate, monthPage + 1);
     });
+    if (widget.onMonthChanged != null) {
+      widget.onMonthChanged!(_currentDisplayedMonthDate);
+    }
   }
 
   @override
